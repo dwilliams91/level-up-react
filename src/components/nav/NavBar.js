@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import "./NavBar.css"
-
+console.log("this is a change")
 export const NavBar = (props) => {
     return (
         <ul className="navbar">
