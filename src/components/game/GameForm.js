@@ -14,10 +14,10 @@ export const GameForm = (props) => {
     */
     const [currentGame, setCurrentGame] = useState({
         description: "",
-        numberOfPlayers: 2,
+        numberOfPlayers: 0,
         title: "",
         maker: "",
-        gameTypeId: 1
+        gameTypeId: 0
     })
 
     /*
@@ -35,6 +35,7 @@ export const GameForm = (props) => {
     const changeGameState = (domEvent) => {
         const newGameState = Object.assign({}, currentGame)
         newGameState[domEvent.target.name] = domEvent.target.value
+        console.log(newGameState)
         setCurrentGame(newGameState)
     }
 
@@ -50,15 +51,35 @@ export const GameForm = (props) => {
                     />
                 </div>
             </fieldset>
-            {/* <fieldset>
+            <fieldset>
                 <div className="form-group">
-                    <label htmlFor="title">description: </label>
-                    <input type="text" name="title" required autoFocus className="form-control"
+                    <label htmlFor="description">description: </label>
+                    <input type="text" name="description" required autoFocus className="form-control"
                         value={currentGame.description}
                         onChange={changeGameState}
                     />
                 </div>
-            </fieldset> */}
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="numberOfPlayers">number of players: </label>
+                    <input type="text" name="numberOfPlayers" required autoFocus className="form-control"
+                        value={currentGame.numberofPlayers}
+                        onChange={changeGameState}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                    <label> Game Type</label>
+                    <select name="gameTypeId"  onChange={changeGameState}>
+                    <option value="0">Select Category</option>
+                                {gameTypes.map(e => (
+                                    <option key={e.id} value={e.id}>
+                                        {e.Label}
+                                    </option>
+                                ))}
+                    </select>
+                </fieldset>
             
 
 
@@ -74,14 +95,14 @@ export const GameForm = (props) => {
                         title: currentGame.title,
                         numberOfPlayers: parseInt(currentGame.numberOfPlayers),
                         description:"play the game and find out",
-                        // description: parseInt(currentGame.description),
+                        description: currentGame.description,
                         gameTypeId: parseInt(currentGame.gameTypeId)
                     }
 
                     // Send POST request to your API
                     console.log(game)
-                    createGame(game)
-                        .then(() => props.history.push("/games"))
+                    // createGame(game)
+                    //     .then(() => props.history.push("/games"))
                 }}
                 className="btn btn-primary">Create</button>
         </form>
