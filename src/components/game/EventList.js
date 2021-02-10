@@ -9,6 +9,10 @@ export const EventList = (props) => {
     }, [])
 
     return (
+        <>
+        <button onClick={() => props.history.push("/events/new")}>
+                Register events
+            </button>
         <article className="events">
             <header className="events__header">
                 <h1>Level Up Game Events</h1>
@@ -33,5 +37,6 @@ export const EventList = (props) => {
                 })
             }
         </article >
+        </>
     )
 }
