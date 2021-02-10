@@ -1,19 +1,24 @@
 import React, { useContext, useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import {GameContext} from "./GameProvider"
+import { EventContext} from "./EventProvider"
 
-export const EventForm = () => {
+export const EventForm = (props) => {
     const history = useHistory()
 
     const {games, getGames}=useContext(GameContext)
+    const {createEvent}=useContext(EventContext)
     const [currentEvent, setEvent] = useState({})
 
     useEffect(() => {
         getGames()
     }, [])
 
+
     const changeEventState = (domEvent) => {
-        // ...
+        const newEventState = Object.assign({}, currentEvent)
+        currentEvent[domEvent.target.name] = domEvent.target.value
+        setEvent(currentEvent)
     }
 
     return (
@@ -28,7 +33,7 @@ export const EventForm = () => {
                         <option value="0">Select a game...</option>
                         {
                             games.map(game => (
-                                <option>{game.title}</option>
+                                <option value={game.id}>{game.title}</option>
                             ))
                         }
                     </select>
@@ -58,11 +63,16 @@ export const EventForm = () => {
                 onClick={evt => {
                     evt.preventDefault()
 
-                    // Create the event
+                    const event={
+                        gameId: currentEvent.gameId,
+                        location: currentEvent.location,
+                        event_time: currentEvent.event_time
+                    }
+                    createEvent(event)
+                        .then(() => props.history.push("/events"))
+                }
+            }
 
-
-                    // Once event is created, redirect user to event list
-                }}
                 className="btn btn-primary">Create Event</button>
         </form>
     )

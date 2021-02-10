@@ -94,15 +94,14 @@ export const GameForm = (props) => {
                         maker: currentGame.maker,
                         title: currentGame.title,
                         numberOfPlayers: parseInt(currentGame.numberOfPlayers),
-                        description:"play the game and find out",
                         description: currentGame.description,
                         gameTypeId: parseInt(currentGame.gameTypeId)
                     }
 
                     // Send POST request to your API
                     console.log(game)
-                    // createGame(game)
-                    //     .then(() => props.history.push("/games"))
+                    createGame(game)
+                        .then(() => props.history.push("/games"))
                 }}
                 className="btn btn-primary">Create</button>
         </form>
