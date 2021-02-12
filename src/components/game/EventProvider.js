@@ -28,6 +28,7 @@ export const EventProvider = (props) => {
     }
 
     const joinEvent = eventId => {
+        // console.log("hits on click")
         return fetch(`http://localhost:8000/events/${ eventId }/signup`, {
             method: "POST",
             headers:{
@@ -35,11 +36,27 @@ export const EventProvider = (props) => {
             }
         })
             .then(response => response.json())
+            .then(()=>{
+                // console.log("hello")
+            })
+            .then(getEvents)
     }
+    const leaveEvent = eventId => {
+        // console.log("hits on click")
+
+        return fetch(`http://localhost:8000/events/${ eventId }/signup`, {
+            method: "DELETE",
+            headers:{
+                "Authorization": `Token ${localStorage.getItem("lu_token")}`
+            }
+        })
+            .then(getEvents)
+    }
+    
     
 
     return (
-        <EventContext.Provider value={{ events, getEvents, createEvent, joinEvent }} >
+        <EventContext.Provider value={{ events, getEvents, createEvent, joinEvent, leaveEvent }} >
             { props.children }
         </EventContext.Provider>
     )
