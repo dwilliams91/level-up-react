@@ -35,7 +35,7 @@ export const GameForm = (props) => {
     const changeGameState = (domEvent) => {
         const newGameState = Object.assign({}, currentGame)
         newGameState[domEvent.target.name] = domEvent.target.value
-        console.log(newGameState)
+        
         setCurrentGame(newGameState)
     }
 
